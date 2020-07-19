@@ -16,6 +16,8 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_ADMIN_PASSWORD}
       - INFLUXDB_DB=${INFLUXDB_PASSWORD}
       # - INFLUXDB_DATA_INDEX_VERSION=${INFLUXDB_DATA_INDEX_VERSION}
+    volumes:
+      - .data/influxdb:/var/lib/influxdb
     logging:
       driver: "json-file"
       options:
@@ -23,3 +25,15 @@ services:
         max-file: "10"
     networks:
       - monitor
+  grafana:
+    image: grafana
+    container_name: 'grafana'
+    tty: true
+    user: root
+    restart: always
+    volumes:
+      - .data/grafana:/var/lib/grafana
+    networks:
+      - monitor
+    ports:
+      - 3000:3000
