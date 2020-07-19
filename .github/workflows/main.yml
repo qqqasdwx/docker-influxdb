@@ -43,10 +43,11 @@ jobs:
     -
       name: Run Buildx
       run: |
+        cd home/server
         docker buildx build \
-          --platform linux/386,linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x \
+          --platform linux/amd64,linux/arm/v7,linux/arm64/v8 \
           --output "type=image,push=true" \
-          --tag qqqasdwx/test-golang-buildx:latest \
+          --tag qqqasdwx/influxdb:home-server \
           --file ./Dockerfile ./
     -
       name: Clear
