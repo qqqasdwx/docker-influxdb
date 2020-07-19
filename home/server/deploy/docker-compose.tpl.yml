@@ -1,0 +1,25 @@
+version: '3.2'
+networks:
+  monitor:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.214.0/24
+
+services:
+  influxdb:
+    image: qqqasdwx/influxdb:home-server
+    container_name: 'influxdb'
+    restart: always
+    environment:
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_ADMIN_USER}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_ADMIN_PASSWORD}
+      - INFLUXDB_DB=${INFLUXDB_PASSWORD}
+      # - INFLUXDB_DATA_INDEX_VERSION=${INFLUXDB_DATA_INDEX_VERSION}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+    networks:
+      - monitor
